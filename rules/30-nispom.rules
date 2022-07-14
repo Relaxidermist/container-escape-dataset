@@ -9,9 +9,9 @@
 
 ## Things that could affect time
 -a always,exit -F arch=b32 -S adjtimex,settimeofday,stime -F key=time-change
--a always,exit -F arch=b64 -S adjtimex,settimeofday -F key=time-change
+#-a always,exit -F arch=b64 -S adjtimex,settimeofday -F key=time-change
 -a always,exit -F arch=b32 -S clock_settime -F a0=0x0 -F key=time-change
--a always,exit -F arch=b64 -S clock_settime -F a0=0x0 -F key=time-change
+#-a always,exit -F arch=b64 -S clock_settime -F a0=0x0 -F key=time-change
 # Introduced in 2.6.39, commented out because it can make false positives
 #-a always,exit -F arch=b32 -S clock_adjtime -F key=time-change
 #-a always,exit -F arch=b64 -S clock_adjtime -F key=time-change
@@ -19,7 +19,7 @@
 
 ## Things that could affect system locale
 -a always,exit -F arch=b32 -S sethostname,setdomainname -F key=system-locale
--a always,exit -F arch=b64 -S sethostname,setdomainname -F key=system-locale
+#-a always,exit -F arch=b64 -S sethostname,setdomainname -F key=system-locale
 -w /etc/issue -p wa -k system-locale
 -w /etc/issue.net -p wa -k system-locale
 -w /etc/hosts -p wa -k system-locale
@@ -42,31 +42,31 @@
 
 ## unsuccessful creation
 -a always,exit -F arch=b32 -S creat,link,mknod,mkdir,symlink,mknodat,linkat,symlinkat -F exit=-EACCES -F key=creation
--a always,exit -F arch=b64 -S mkdir,creat,link,symlink,mknod,mknodat,linkat,symlinkat -F exit=-EACCES -F key=creation
+#-a always,exit -F arch=b64 -S mkdir,creat,link,symlink,mknod,mknodat,linkat,symlinkat -F exit=-EACCES -F key=creation
 -a always,exit -F arch=b32 -S link,mkdir,symlink,mkdirat -F exit=-EPERM -F key=creation
--a always,exit -F arch=b64 -S mkdir,link,symlink,mkdirat -F exit=-EPERM -F key=creation
+#-a always,exit -F arch=b64 -S mkdir,link,symlink,mkdirat -F exit=-EPERM -F key=creation
 
 ## unsuccessful open
 -a always,exit -F arch=b32 -S open,openat,open_by_handle_at -F exit=-EACCES -F key=open
--a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EACCES -F key=open
+#-a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EACCES -F key=open
 -a always,exit -F arch=b32 -S open,openat,open_by_handle_at -F exit=-EPERM -F key=open
--a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EPERM -F key=open
+#-a always,exit -F arch=b64 -S open,openat,open_by_handle_at -F exit=-EPERM -F key=open
 
 ## unsuccessful close
 -a always,exit -F arch=b32 -S close -F exit=-EIO -F key=close
--a always,exit -F arch=b64 -S close -F exit=-EIO -F key=close
+#-a always,exit -F arch=b64 -S close -F exit=-EIO -F key=close
 
 ## unsuccessful modifications
 -a always,exit -F arch=b32 -S rename -S renameat -S truncate -S chmod -S setxattr -S lsetxattr -S removexattr -S lremovexattr -F exit=-EACCES -F key=mods
--a always,exit -F arch=b64 -S rename -S renameat -S truncate -S chmod -S setxattr -S lsetxattr -S removexattr -S lremovexattr -F exit=-EACCES -F key=mods
+#-a always,exit -F arch=b64 -S rename -S renameat -S truncate -S chmod -S setxattr -S lsetxattr -S removexattr -S lremovexattr -F exit=-EACCES -F key=mods
 -a always,exit -F arch=b32 -S rename -S renameat -S truncate -S chmod -S setxattr -S lsetxattr -S removexattr -S lremovexattr -F exit=-EPERM -F key=mods
--a always,exit -F arch=b64 -S rename -S renameat -S truncate -S chmod -S setxattr -S lsetxattr -S removexattr -S lremovexattr -F exit=-EPERM -F key=mods
+#-a always,exit -F arch=b64 -S rename -S renameat -S truncate -S chmod -S setxattr -S lsetxattr -S removexattr -S lremovexattr -F exit=-EPERM -F key=mods
 
 ## unsuccessful deletion
 -a always,exit -F arch=b32 -S unlink,rmdir,unlinkat -F exit=-EACCES -F key=delete
--a always,exit -F arch=b64 -S rmdir,unlink,unlinkat -F exit=-EACCES -F key=delete
+#-a always,exit -F arch=b64 -S rmdir,unlink,unlinkat -F exit=-EACCES -F key=delete
 -a always,exit -F arch=b32 -S unlink,rmdir,unlinkat -F exit=-EPERM -F key=delete
--a always,exit -F arch=b64 -S rmdir,unlink,unlinkat -F exit=-EPERM -F key=delete
+#-a always,exit -F arch=b64 -S rmdir,unlink,unlinkat -F exit=-EPERM -F key=delete
 
 ## Audit 1, 1(d) Changes in user authenticators.
 ## Covered by patches to libpam, passwd, and shadow-utils
